@@ -14,7 +14,7 @@ GpTypeStructBase::SP    GpXmlMapper::SFromXml
     GpXmlToStruct::SParseXmlDom(aXmlData, xmlDoc);
 
     const tinyxml2::XMLElement* xmlRootElement = xmlDoc.RootElement();
-    THROW_GPE_COND_CHECK_M
+    THROW_GPE_COND
     (
         xmlRootElement != nullptr,
         "XML root element is null"_sv
@@ -46,7 +46,7 @@ GpTypeStructBase::SP    GpXmlMapper::SFromXml
     GpXmlToStruct::SParseXmlDom(aXmlData, xmlDoc);
 
     const tinyxml2::XMLElement* xmlRootElement = xmlDoc.RootElement();
-    THROW_GPE_COND_CHECK_M
+    THROW_GPE_COND
     (
         xmlRootElement != nullptr,
         "XML root element is null"_sv
@@ -76,7 +76,7 @@ void    GpXmlMapper::SFromXml
     GpXmlToStruct::SParseXmlDom(aXmlData, xmlDoc);
 
     const tinyxml2::XMLElement* xmlRootElement = xmlDoc.RootElement();
-    THROW_GPE_COND_CHECK_M
+    THROW_GPE_COND
     (
         xmlRootElement != nullptr,
         "XML root element is null"_sv

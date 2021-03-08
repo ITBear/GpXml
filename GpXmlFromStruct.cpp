@@ -283,7 +283,7 @@ void    _ProcessContainer
 
             for (const GpBytesArray& e: container)
             {
-                const std::string       s   = StrOps::SFromBytes(e);
+                const std::string       s   = StrOps::SFromBytesHex(e);
                 tinyxml2::XMLElement&   xmlE= *valElement.InsertNewChildElement(elementName.data());
                 xmlE.SetText(s.data());
 
@@ -303,7 +303,7 @@ void    _ProcessContainer
 
             if (aPropInfo.FlagTest(GpTypePropFlag::UNWRAP_CONTAINER))
             {
-                THROW_GPE_COND_CHECK_M
+                THROW_GPE_COND
                 (
                     aUnwrapKeyProp.has_value() == false,
                     "Sequential unwrap are unsupported"_sv
@@ -761,7 +761,7 @@ void    GpXmlFromStruct::SWriteAttr (const GpTypeStructBase&    aStruct,
         } break;
         case GpType::BLOB:
         {
-            const std::string propVal = StrOps::SFromBytes(aPropInfo.Value_BLOB(aStruct));
+            const std::string propVal = StrOps::SFromBytesHex(aPropInfo.Value_BLOB(aStruct));
             aXmlElement.SetAttribute(propName.data(), propVal.data());
         } break;
         case GpType::STRUCT:
@@ -898,7 +898,7 @@ void    GpXmlFromStruct::SWriteValue (const GpTypeStructBase&       aStruct,
         } break;
         case GpType::BLOB:
         {
-            const std::string propVal = StrOps::SFromBytes(aPropInfo.Value_BLOB(aStruct));
+            const std::string propVal = StrOps::SFromBytesHex(aPropInfo.Value_BLOB(aStruct));
             valElement.SetText(propVal.data());
         } break;
         case GpType::STRUCT:
@@ -980,7 +980,7 @@ void    GpXmlFromStruct::SWriteValueMap (const GpTypeStructBase&        /*aStruc
                                          GpTypePropInfo::C::Opt::CRef   /*aUnwrapKeyProp*/)
 {
     //TODO: implement
-    THROW_NOT_IMPLEMENTED();
+    THROW_GPE_NOT_IMPLEMENTED();
 
     /*const GpType::EnumT keyType       = aPropInfo.ContainerKeyType();
     std::string_view    propName    = aPropInfo.Name();
