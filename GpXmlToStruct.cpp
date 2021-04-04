@@ -365,7 +365,7 @@ void    GpXmlToStruct::SParseXmlDom (GpRawPtrCharR          aXmlData,
     THROW_GPE_COND
     (
         error == tinyxml2::XMLError::XML_SUCCESS,
-        "Xml parse error: "_sv + aXmlDocOut.ErrorName() + ", at line "_sv + aXmlDocOut.ErrorLineNum()
+        [&](){return "Xml parse error: "_sv + aXmlDocOut.ErrorName() + ", at line "_sv + aXmlDocOut.ErrorLineNum();}
     );
 }
 
@@ -454,7 +454,11 @@ GpXmlToStruct::FindTypeInfoResT GpXmlToStruct::SFindTypeInfo (const tinyxml2::XM
     //Find struct info by uid
     const auto structUidOpt = GpTypeManager::S().Find(structUID);
 
-    THROW_GPE_COND(structUidOpt.has_value(), "Struct info was not found by uid = '"_sv + structUID.ToString() + "'"_sv);
+    THROW_GPE_COND
+    (
+        structUidOpt.has_value(),
+        [&](){return "Struct info was not found by uid = '"_sv + structUID.ToString() + "'"_sv;}
+    );
 
      return structUidOpt.value();
 }
