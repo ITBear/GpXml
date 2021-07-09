@@ -7,7 +7,7 @@ namespace GPlatform {
 class GPXML_API GpXmlMapper
 {
 public:
-    CLASS_REMOVE_CTRS(GpXmlMapper)
+    CLASS_REMOVE_CTRS_DEFAULT_MOVE_COPY(GpXmlMapper)
 
 public:
     static GpTypeStructBase::SP     SFromXml    (GpRawPtrCharR          aXmlData,

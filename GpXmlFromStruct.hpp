@@ -9,7 +9,7 @@ namespace GPlatform {
 class GPXML_API GpXmlFromStruct
 {
 public:
-    CLASS_REMOVE_CTRS(GpXmlFromStruct);
+    CLASS_REMOVE_CTRS_DEFAULT_MOVE_COPY(GpXmlFromStruct);
 
 public:
     static std::string  SToString       (const tinyxml2::XMLDocument&   aXmlDOM);

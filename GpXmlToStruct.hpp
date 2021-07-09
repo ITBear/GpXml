@@ -8,7 +8,7 @@ namespace GPlatform {
 class GPXML_API GpXmlToStruct
 {
 public:
-    CLASS_REMOVE_CTRS(GpXmlToStruct);
+    CLASS_REMOVE_CTRS_DEFAULT_MOVE_COPY(GpXmlToStruct);
 
     enum class CheckMode
     {
