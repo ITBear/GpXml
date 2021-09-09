@@ -21,14 +21,20 @@ GpTypeStructBase::SP    GpTypeMapperXml::ToStruct (GpRawPtrByteR aData) const
     return GpXmlMapper::SFromXml(aData, iFlags);
 }
 
-GpTypeStructBase::SP    GpTypeMapperXml::ToStruct (GpRawPtrByteR            aData,
-                                                   const GpTypeStructInfo&  aTypeInfo) const
+GpTypeStructBase::SP    GpTypeMapperXml::ToStruct
+(
+    GpRawPtrByteR           aData,
+    const GpTypeStructInfo& aTypeInfo
+) const
 {
     return GpXmlMapper::SFromXml(aData, aTypeInfo, iFlags);
 }
 
-void    GpTypeMapperXml::FromStruct (const GpTypeStructBase&    aStruct,
-                                     GpByteWriter&              aWriter) const
+void    GpTypeMapperXml::FromStruct
+(
+    const GpTypeStructBase& aStruct,
+    GpByteWriter&           aWriter
+) const
 {
     GpXmlMapper::SToXml(aStruct, aWriter, iFlags);
 }

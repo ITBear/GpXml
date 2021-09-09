@@ -34,11 +34,14 @@ public:
 
 template<typename Inserter,
          typename ValGetter>
-void    _ProcessContainer (GpTypeStructBase&            aStruct,
-                           const GpTypePropInfo&        aPropInfo,
-                           const tinyxml2::XMLElement&  aXmlElement,
-                           const GpXmlMapperFlags       aFlags,
-                           GpTypePropInfo::C::Opt::CRef aUnwrapKeyProp)
+void    _ProcessContainer
+(
+    GpTypeStructBase&               aStruct,
+    const GpTypePropInfo&           aPropInfo,
+    const tinyxml2::XMLElement&     aXmlElement,
+    const GpXmlMapperFlags          aFlags,
+    GpTypePropInfo::C::Opt::CRef    aUnwrapKeyProp
+)
 {
     if (aUnwrapKeyProp.has_value())
     {
@@ -356,8 +359,11 @@ void    _ProcessContainer (GpTypeStructBase&            aStruct,
     }
 }
 
-void    GpXmlToStruct::SParseXmlDom (GpRawPtrCharR          aXmlData,
-                                     tinyxml2::XMLDocument& aXmlDocOut)
+void    GpXmlToStruct::SParseXmlDom
+(
+    GpRawPtrCharR           aXmlData,
+    tinyxml2::XMLDocument&  aXmlDocOut
+)
 {
     tinyxml2::XMLError error = aXmlDocOut.Parse(aXmlData.Ptr(), aXmlData.CountLeft().As<size_t>());
 
@@ -369,11 +375,14 @@ void    GpXmlToStruct::SParseXmlDom (GpRawPtrCharR          aXmlData,
     );
 }
 
-void    GpXmlToStruct::SReadStruct (GpTypeStructBase&               aStruct,
-                                    const tinyxml2::XMLElement&     aXmlElement,
-                                    const GpXmlMapperFlags          aFlags,
-                                    GpTypePropInfo::C::Opt::CRef    aUnwrapKeyProp,
-                                    std::string_view                aUnwrapKeyValue)
+void    GpXmlToStruct::SReadStruct
+(
+    GpTypeStructBase&               aStruct,
+    const tinyxml2::XMLElement&     aXmlElement,
+    const GpXmlMapperFlags          aFlags,
+    GpTypePropInfo::C::Opt::CRef    aUnwrapKeyProp,
+    std::string_view                aUnwrapKeyValue
+)
 {
     const GpTypeStructInfo& typeInfo    = aStruct.TypeInfo();
     const auto&             props       = typeInfo.Props();
@@ -381,8 +390,8 @@ void    GpXmlToStruct::SReadStruct (GpTypeStructBase&               aStruct,
     for (const GpTypePropInfo& propInfo: props)
     {
         const GpTypeContainer::EnumT containerType = propInfo.Container();
-        try
-        {
+        /*try
+        {*/
             if (containerType == GpTypeContainer::NO)
             {
                 SReadValue(aStruct, propInfo, aXmlElement, aFlags, aUnwrapKeyProp, aUnwrapKeyValue);
@@ -399,19 +408,22 @@ void    GpXmlToStruct::SReadStruct (GpTypeStructBase&               aStruct,
             {
                 SReadValueMap(aStruct, propInfo, aXmlElement, aFlags, aUnwrapKeyProp);
             }
-        } catch (const std::exception& e)
+        /*} catch (const std::exception& e)
         {
             THROW_GPE("Failed to read value from Xml. Struct "_sv + typeInfo.Name() + "."_sv + propInfo.Name() + "\nReason:\n"_sv + e.what());
         } catch (...)
         {
             THROW_GPE("Failed to read value from Xml. Struct "_sv + typeInfo.Name() + "."_sv + propInfo.Name() + "\nReason:\nUnknown exception"_sv);
-        }
+        }*/
     }
 }
 
-const GpTypeStructInfo& GpXmlToStruct::SCheckTypeInfo (const tinyxml2::XMLElement&  aXmlElement,
-                                                       const GpTypeStructInfo&      aTypeInfoBase,
-                                                       const CheckMode              aCheckMode)
+const GpTypeStructInfo& GpXmlToStruct::SCheckTypeInfo
+(
+    const tinyxml2::XMLElement& aXmlElement,
+    const GpTypeStructInfo&     aTypeInfoBase,
+    const CheckMode             aCheckMode
+)
 {
     FindTypeInfoResT findRes = SFindTypeInfo(aXmlElement);
 
@@ -463,12 +475,15 @@ GpXmlToStruct::FindTypeInfoResT GpXmlToStruct::SFindTypeInfo (const tinyxml2::XM
      return structUidOpt.value();
 }
 
-void    GpXmlToStruct::SReadValue (GpTypeStructBase&            aStruct,
-                                   const GpTypePropInfo&        aPropInfo,
-                                   const tinyxml2::XMLElement&  aXmlElement,
-                                   const GpXmlMapperFlags       aFlags,
-                                   GpTypePropInfo::C::Opt::CRef aUnwrapKeyProp,
-                                   std::string_view             aUnwrapKeyValue)
+void    GpXmlToStruct::SReadValue
+(
+    GpTypeStructBase&               aStruct,
+    const GpTypePropInfo&           aPropInfo,
+    const tinyxml2::XMLElement&     aXmlElement,
+    const GpXmlMapperFlags          aFlags,
+    GpTypePropInfo::C::Opt::CRef    aUnwrapKeyProp,
+    std::string_view                aUnwrapKeyValue
+)
 {
     const GpType::EnumT propType = aPropInfo.Type();
     std::string_view    propName = aPropInfo.Name();
@@ -517,71 +532,113 @@ void    GpXmlToStruct::SReadValue (GpTypeStructBase&            aStruct,
     {
         case GpType::U_INT_8:
         {
-            aPropInfo.Value_UInt8(aStruct) = NumOps::SConvert<u_int_8>(StrOps::SToUI64(propXmlElementText));
+            if (propXmlElementText.length() > 0)
+            {
+                aPropInfo.Value_UInt8(aStruct) = NumOps::SConvert<u_int_8>(StrOps::SToUI64(propXmlElementText));
+            }
         } break;
         case GpType::S_INT_8:
         {
-            aPropInfo.Value_UInt8(aStruct) = NumOps::SConvert<s_int_8>(StrOps::SToSI64(propXmlElementText));
+            if (propXmlElementText.length() > 0)
+            {
+                aPropInfo.Value_UInt8(aStruct) = NumOps::SConvert<s_int_8>(StrOps::SToSI64(propXmlElementText));
+            }
         } break;
         case GpType::U_INT_16:
         {
-            aPropInfo.Value_UInt16(aStruct) = NumOps::SConvert<u_int_16>(StrOps::SToUI64(propXmlElementText));
+            if (propXmlElementText.length() > 0)
+            {
+                aPropInfo.Value_UInt16(aStruct) = NumOps::SConvert<u_int_16>(StrOps::SToUI64(propXmlElementText));
+            }
         } break;
         case GpType::S_INT_16:
         {
-            aPropInfo.Value_UInt16(aStruct) = NumOps::SConvert<s_int_16>(StrOps::SToSI64(propXmlElementText));
+            if (propXmlElementText.length() > 0)
+            {
+                aPropInfo.Value_UInt16(aStruct) = NumOps::SConvert<s_int_16>(StrOps::SToSI64(propXmlElementText));
+            }
         } break;
         case GpType::U_INT_32:
         {
-            aPropInfo.Value_UInt32(aStruct) = NumOps::SConvert<u_int_32>(StrOps::SToUI64(propXmlElementText));
+            if (propXmlElementText.length() > 0)
+            {
+                aPropInfo.Value_UInt32(aStruct) = NumOps::SConvert<u_int_32>(StrOps::SToUI64(propXmlElementText));
+            }
         } break;
         case GpType::S_INT_32:
         {
-            aPropInfo.Value_UInt32(aStruct) = NumOps::SConvert<s_int_32>(StrOps::SToSI64(propXmlElementText));
+            if (propXmlElementText.length() > 0)
+            {
+                aPropInfo.Value_UInt32(aStruct) = NumOps::SConvert<s_int_32>(StrOps::SToSI64(propXmlElementText));
+            }
         } break;
         case GpType::U_INT_64:
         {
-            aPropInfo.Value_UInt64(aStruct) = NumOps::SConvert<u_int_64>(StrOps::SToUI64(propXmlElementText));
+            if (propXmlElementText.length() > 0)
+            {
+                aPropInfo.Value_UInt64(aStruct) = NumOps::SConvert<u_int_64>(StrOps::SToUI64(propXmlElementText));
+            }
         } break;
         case GpType::S_INT_64:
         {
-            aPropInfo.Value_UInt64(aStruct) = NumOps::SConvert<s_int_64>(StrOps::SToSI64(propXmlElementText));
+            if (propXmlElementText.length() > 0)
+            {
+                aPropInfo.Value_UInt64(aStruct) = NumOps::SConvert<s_int_64>(StrOps::SToSI64(propXmlElementText));
+            }
         } break;
         case GpType::UNIX_TS_S:
         {
-            if (aFlags.Test(GpXmlMapperFlag::UNIX_TS_AS_STR))
+            if (propXmlElementText.length() > 0)
             {
-                aPropInfo.Value_UInt64(aStruct) = NumOps::SConvert<s_int_64>(GpDateTimeOps::SUnixTsFromStr_s(propXmlElementText, GpDateTimeFormat::STD_DATE_TIME).Value());
-            } else
-            {
-                aPropInfo.Value_UInt64(aStruct) = NumOps::SConvert<s_int_64>(StrOps::SToSI64(propXmlElementText));
+                if (aFlags.Test(GpXmlMapperFlag::UNIX_TS_AS_STR))
+                {
+                    aPropInfo.Value_UInt64(aStruct) = NumOps::SConvert<s_int_64>(GpDateTimeOps::SUnixTsFromStr_s(propXmlElementText, GpDateTimeFormat::STD_DATE_TIME).Value());
+                } else
+                {
+                    aPropInfo.Value_UInt64(aStruct) = NumOps::SConvert<s_int_64>(StrOps::SToSI64(propXmlElementText));
+                }
             }
         } break;
         case GpType::UNIX_TS_MS:
         {
-            if (aFlags.Test(GpXmlMapperFlag::UNIX_TS_AS_STR))
+            if (propXmlElementText.length() > 0)
             {
-                aPropInfo.Value_UInt64(aStruct) = NumOps::SConvert<s_int_64>(GpDateTimeOps::SUnixTsFromStr_ms(propXmlElementText, GpDateTimeFormat::STD_DATE_TIME).Value());
-            } else
-            {
-                aPropInfo.Value_UInt64(aStruct) = NumOps::SConvert<s_int_64>(StrOps::SToSI64(propXmlElementText));
+                if (aFlags.Test(GpXmlMapperFlag::UNIX_TS_AS_STR))
+                {
+                    aPropInfo.Value_UInt64(aStruct) = NumOps::SConvert<s_int_64>(GpDateTimeOps::SUnixTsFromStr_ms(propXmlElementText, GpDateTimeFormat::STD_DATE_TIME).Value());
+                } else
+                {
+                    aPropInfo.Value_UInt64(aStruct) = NumOps::SConvert<s_int_64>(StrOps::SToSI64(propXmlElementText));
+                }
             }
         } break;
         case GpType::DOUBLE:
         {
-            aPropInfo.Value_Double(aStruct) = NumOps::SConvert<double>(StrOps::SToDouble_fast(propXmlElementText));
+            if (propXmlElementText.length() > 0)
+            {
+                aPropInfo.Value_Double(aStruct) = NumOps::SConvert<double>(StrOps::SToDouble_fast(propXmlElementText));
+            }
         } break;
         case GpType::FLOAT:
         {
-            aPropInfo.Value_Float(aStruct) = NumOps::SConvert<float>(StrOps::SToDouble_fast(propXmlElementText));
+            if (propXmlElementText.length() > 0)
+            {
+                aPropInfo.Value_Float(aStruct) = NumOps::SConvert<float>(StrOps::SToDouble_fast(propXmlElementText));
+            }
         } break;
         case GpType::BOOLEAN:
         {
-            aPropInfo.Value_Bool(aStruct) = (propXmlElementText == "true"_sv);
+            if (propXmlElementText.length() > 0)
+            {
+                aPropInfo.Value_Bool(aStruct) = (propXmlElementText == "true"_sv);
+            }
         } break;
         case GpType::UUID:
         {
-            aPropInfo.Value_UUID(aStruct) = GpUUID::SFromString(propXmlElementText);
+            if (propXmlElementText.length() > 0)
+            {
+                aPropInfo.Value_UUID(aStruct) = GpUUID::SFromString(propXmlElementText);
+            }
         } break;
         case GpType::STRING:
         {
@@ -589,8 +646,11 @@ void    GpXmlToStruct::SReadValue (GpTypeStructBase&            aStruct,
         } break;
         case GpType::BLOB:
         {
-            GpRawPtrCharR strPtr(propXmlElementText);
-            aPropInfo.Value_BLOB(aStruct) = StrOps::SToBytesHex(strPtr);
+            if (propXmlElementText.length() > 0)
+            {
+                GpRawPtrCharR strPtr(propXmlElementText);
+                aPropInfo.Value_BLOB(aStruct) = StrOps::SToBytesHex(strPtr);
+            }
         } break;
         case GpType::STRUCT:
         {
@@ -608,7 +668,10 @@ void    GpXmlToStruct::SReadValue (GpTypeStructBase&            aStruct,
         } break;
         case GpType::ENUM:
         {
-            aPropInfo.Value_Enum(aStruct).FromString(propXmlElementText);
+            if (propXmlElementText.length() > 0)
+            {
+                aPropInfo.Value_Enum(aStruct).FromString(propXmlElementText);
+            }
         } break;
         case GpType::ENUM_FLAGS:
         {
@@ -625,38 +688,50 @@ void    GpXmlToStruct::SReadValue (GpTypeStructBase&            aStruct,
     }
 }
 
-void    GpXmlToStruct::SReadValueVec (GpTypeStructBase&             aStruct,
-                                      const GpTypePropInfo&         aPropInfo,
-                                      const tinyxml2::XMLElement&   aXmlElement,
-                                      const GpXmlMapperFlags        aFlags,
-                                      GpTypePropInfo::C::Opt::CRef  aUnwrapKeyProp)
+void    GpXmlToStruct::SReadValueVec
+(
+    GpTypeStructBase&               aStruct,
+    const GpTypePropInfo&           aPropInfo,
+    const tinyxml2::XMLElement&     aXmlElement,
+    const GpXmlMapperFlags          aFlags,
+    GpTypePropInfo::C::Opt::CRef    aUnwrapKeyProp
+)
 {
     _ProcessContainer<_InserterVec, GpTypePropInfoGetter_Vec>(aStruct, aPropInfo, aXmlElement, aFlags, aUnwrapKeyProp);
 }
 
-void    GpXmlToStruct::SReadValueList (GpTypeStructBase&            aStruct,
-                                        const GpTypePropInfo&       aPropInfo,
-                                       const tinyxml2::XMLElement&  aXmlElement,
-                                       const GpXmlMapperFlags       aFlags,
-                                       GpTypePropInfo::C::Opt::CRef aUnwrapKeyProp)
+void    GpXmlToStruct::SReadValueList
+(
+    GpTypeStructBase&               aStruct,
+    const GpTypePropInfo&           aPropInfo,
+    const tinyxml2::XMLElement&     aXmlElement,
+    const GpXmlMapperFlags          aFlags,
+    GpTypePropInfo::C::Opt::CRef    aUnwrapKeyProp
+)
 {
     _ProcessContainer<_InserterList, GpTypePropInfoGetter_List>(aStruct, aPropInfo, aXmlElement, aFlags, aUnwrapKeyProp);
 }
 
-void    GpXmlToStruct::SReadValueSet (GpTypeStructBase&             aStruct,
-                                      const GpTypePropInfo&         aPropInfo,
-                                      const tinyxml2::XMLElement&   aXmlElement,
-                                      const GpXmlMapperFlags        aFlags,
-                                      GpTypePropInfo::C::Opt::CRef  aUnwrapKeyProp)
+void    GpXmlToStruct::SReadValueSet
+(
+    GpTypeStructBase&               aStruct,
+    const GpTypePropInfo&           aPropInfo,
+    const tinyxml2::XMLElement&     aXmlElement,
+    const GpXmlMapperFlags          aFlags,
+    GpTypePropInfo::C::Opt::CRef    aUnwrapKeyProp
+)
 {
     _ProcessContainer<_InserterSet, GpTypePropInfoGetter_Set>(aStruct, aPropInfo, aXmlElement, aFlags, aUnwrapKeyProp);
 }
 
-void    GpXmlToStruct::SReadValueMap (GpTypeStructBase&             /*aStruct*/,
-                                      const GpTypePropInfo&         /*aPropInfo*/,
-                                      const tinyxml2::XMLElement&   /*aXmlElement*/,
-                                      const GpXmlMapperFlags        /*aFlags*/,
-                                      GpTypePropInfo::C::Opt::CRef  /*aUnwrapKeyProp*/)
+void    GpXmlToStruct::SReadValueMap
+(
+    GpTypeStructBase&               /*aStruct*/,
+    const GpTypePropInfo&           /*aPropInfo*/,
+    const tinyxml2::XMLElement&     /*aXmlElement*/,
+    const GpXmlMapperFlags          /*aFlags*/,
+    GpTypePropInfo::C::Opt::CRef    /*aUnwrapKeyProp*/
+)
 {
     //TODO: implement
     THROW_GPE_NOT_IMPLEMENTED();

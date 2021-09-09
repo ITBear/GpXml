@@ -322,7 +322,7 @@ void    _ProcessContainer
                     {
                         const GpTypeStructBase& structBase = e.VCn();
                         GpXmlFromStruct::SWrite(structBase, aXmlElement, aFlags, unwrapKeyPropInfo);
-                    }                   
+                    }
                 }
             } else
             {
@@ -792,11 +792,14 @@ void    GpXmlFromStruct::SWriteAttr (const GpTypeStructBase&    aStruct,
     }
 }
 
-void    GpXmlFromStruct::SWriteValue (const GpTypeStructBase&       aStruct,
-                                      const GpTypePropInfo&         aPropInfo,
-                                      tinyxml2::XMLElement&         aXmlElement,
-                                      const GpXmlMapperFlags        aFlags,
-                                      GpTypePropInfo::C::Opt::CRef  aUnwrapKeyProp)
+void    GpXmlFromStruct::SWriteValue
+(
+    const GpTypeStructBase&         aStruct,
+    const GpTypePropInfo&           aPropInfo,
+    tinyxml2::XMLElement&           aXmlElement,
+    const GpXmlMapperFlags          aFlags,
+    GpTypePropInfo::C::Opt::CRef    aUnwrapKeyProp
+)
 {
     const GpType::EnumT propType = aPropInfo.Type();
     std::string_view    propName = aPropInfo.Name();
