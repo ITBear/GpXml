@@ -85,8 +85,11 @@ void    GpXmlMapper::SFromXml
     GpXmlToStruct::SReadStruct(aOut, *xmlRootElement, aFlags, std::nullopt, ""_sv);
 }
 
-std::string GpXmlMapper::SToXml (const GpTypeStructBase&    aStruct,
-                                 const GpXmlMapperFlags     aFlags)
+std::string GpXmlMapper::SToXml
+(
+    const GpTypeStructBase& aStruct,
+    const GpXmlMapperFlags  aFlags
+)
 {
     tinyxml2::XMLDocument   xmlDoc;
     tinyxml2::XMLNode*      xmlRoot = xmlDoc.NewElement("body");
