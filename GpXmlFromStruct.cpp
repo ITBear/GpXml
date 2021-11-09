@@ -1,7 +1,5 @@
 #include "GpXmlFromStruct.hpp"
 
-#include <iostream>
-
 namespace GPlatform {
 
 template<typename ValGetter>
@@ -600,15 +598,6 @@ std::string GpXmlFromStruct::SToString (const tinyxml2::XMLDocument& aXmlDOM)
     aXmlDOM.Print(&printer);
 
     std::string s(printer.CStr(), NumOps::SSub<size_t>(printer.CStrSize(), 1));
-
-    // !!!!!!!!!!!!!!! bug of feature
-    //If in print to memory mode, return the size
-    //of the XML file in memory. (Note the size returned
-    //includes the terminating null
-
-    //int c = s.at(s.length() - 1);
-    //std::cout << "[GpXmlFromStruct::SToString]: '"_sv << s << "'"_sv << std::endl;
-    //std::cout << "[GpXmlFromStruct::SToString]: c = "_sv << c << std::endl;
 
     return s;
 }

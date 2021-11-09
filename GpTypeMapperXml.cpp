@@ -1,5 +1,4 @@
 #include "GpTypeMapperXml.hpp"
-#include <iostream>
 
 namespace GPlatform {
 
