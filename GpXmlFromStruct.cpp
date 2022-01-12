@@ -23,8 +23,6 @@ void    _ProcessContainer
     const GpType::EnumT propType = aPropInfo.Type();
     std::string_view    propName = aPropInfo.Name();
 
-    tinyxml2::XMLElement& valElement = *aXmlElement.InsertNewChildElement(propName.data());
-
     std::string elementName("e"_sv);
     auto        elementNameByFlag = aPropInfo.FlagArg(GpTypePropFlag::CONTAINER_ELEMENT_NAME);
 
@@ -39,14 +37,19 @@ void    _ProcessContainer
         {
             auto& container = ValGetter::UInt8(aStruct, aPropInfo);
 
-            for (const u_int_8 e: container)
+            if (container.size() > 0)
             {
-                tinyxml2::XMLElement& xmlE = *valElement.InsertNewChildElement(elementName.data());
-                xmlE.SetText(u_int_64(e));
+                tinyxml2::XMLElement& valElement = *aXmlElement.InsertNewChildElement(propName.data());
 
-                if (aUnwrapKeyProp.has_value())
+                for (const u_int_8 e: container)
                 {
-                    GpXmlFromStruct::SWriteAttr(aStruct, aUnwrapKeyProp.value(), xmlE, aFlags);
+                    tinyxml2::XMLElement& xmlE = *valElement.InsertNewChildElement(elementName.data());
+                    xmlE.SetText(u_int_64(e));
+
+                    if (aUnwrapKeyProp.has_value())
+                    {
+                        GpXmlFromStruct::SWriteAttr(aStruct, aUnwrapKeyProp.value(), xmlE, aFlags);
+                    }
                 }
             }
         } break;
@@ -54,14 +57,19 @@ void    _ProcessContainer
         {
             auto& container = ValGetter::SInt8(aStruct, aPropInfo);
 
-            for (const s_int_8 e: container)
+            if (container.size() > 0)
             {
-                tinyxml2::XMLElement& xmlE = *valElement.InsertNewChildElement(elementName.data());
-                xmlE.SetText(s_int_64(e));
+                tinyxml2::XMLElement& valElement = *aXmlElement.InsertNewChildElement(propName.data());
 
-                if (aUnwrapKeyProp.has_value())
+                for (const s_int_8 e: container)
                 {
-                    GpXmlFromStruct::SWriteAttr(aStruct, aUnwrapKeyProp.value(), xmlE, aFlags);
+                    tinyxml2::XMLElement& xmlE = *valElement.InsertNewChildElement(elementName.data());
+                    xmlE.SetText(s_int_64(e));
+
+                    if (aUnwrapKeyProp.has_value())
+                    {
+                        GpXmlFromStruct::SWriteAttr(aStruct, aUnwrapKeyProp.value(), xmlE, aFlags);
+                    }
                 }
             }
         } break;
@@ -69,14 +77,19 @@ void    _ProcessContainer
         {
             auto& container = ValGetter::UInt16(aStruct, aPropInfo);
 
-            for (const u_int_16 e: container)
+            if (container.size() > 0)
             {
-                tinyxml2::XMLElement& xmlE = *valElement.InsertNewChildElement(elementName.data());
-                xmlE.SetText(u_int_64(e));
+                tinyxml2::XMLElement& valElement = *aXmlElement.InsertNewChildElement(propName.data());
 
-                if (aUnwrapKeyProp.has_value())
+                for (const u_int_16 e: container)
                 {
-                    GpXmlFromStruct::SWriteAttr(aStruct, aUnwrapKeyProp.value(), xmlE, aFlags);
+                    tinyxml2::XMLElement& xmlE = *valElement.InsertNewChildElement(elementName.data());
+                    xmlE.SetText(u_int_64(e));
+
+                    if (aUnwrapKeyProp.has_value())
+                    {
+                        GpXmlFromStruct::SWriteAttr(aStruct, aUnwrapKeyProp.value(), xmlE, aFlags);
+                    }
                 }
             }
         } break;
@@ -84,14 +97,19 @@ void    _ProcessContainer
         {
             auto& container = ValGetter::SInt16(aStruct, aPropInfo);
 
-            for (const s_int_16 e: container)
+            if (container.size() > 0)
             {
-                tinyxml2::XMLElement& xmlE = *valElement.InsertNewChildElement(elementName.data());
-                xmlE.SetText(s_int_64(e));
+                tinyxml2::XMLElement& valElement = *aXmlElement.InsertNewChildElement(propName.data());
 
-                if (aUnwrapKeyProp.has_value())
+                for (const s_int_16 e: container)
                 {
-                    GpXmlFromStruct::SWriteAttr(aStruct, aUnwrapKeyProp.value(), xmlE, aFlags);
+                    tinyxml2::XMLElement& xmlE = *valElement.InsertNewChildElement(elementName.data());
+                    xmlE.SetText(s_int_64(e));
+
+                    if (aUnwrapKeyProp.has_value())
+                    {
+                        GpXmlFromStruct::SWriteAttr(aStruct, aUnwrapKeyProp.value(), xmlE, aFlags);
+                    }
                 }
             }
         } break;
@@ -99,14 +117,19 @@ void    _ProcessContainer
         {
             auto& container = ValGetter::UInt32(aStruct, aPropInfo);
 
-            for (const u_int_32 e: container)
+            if (container.size() > 0)
             {
-                tinyxml2::XMLElement& xmlE = *valElement.InsertNewChildElement(elementName.data());
-                xmlE.SetText(u_int_64(e));
+                tinyxml2::XMLElement& valElement = *aXmlElement.InsertNewChildElement(propName.data());
 
-                if (aUnwrapKeyProp.has_value())
+                for (const u_int_32 e: container)
                 {
-                    GpXmlFromStruct::SWriteAttr(aStruct, aUnwrapKeyProp.value(), xmlE, aFlags);
+                    tinyxml2::XMLElement& xmlE = *valElement.InsertNewChildElement(elementName.data());
+                    xmlE.SetText(u_int_64(e));
+
+                    if (aUnwrapKeyProp.has_value())
+                    {
+                        GpXmlFromStruct::SWriteAttr(aStruct, aUnwrapKeyProp.value(), xmlE, aFlags);
+                    }
                 }
             }
         } break;
@@ -114,14 +137,19 @@ void    _ProcessContainer
         {
             auto& container = ValGetter::SInt32(aStruct, aPropInfo);
 
-            for (const s_int_32 e: container)
+            if (container.size() > 0)
             {
-                tinyxml2::XMLElement& xmlE = *valElement.InsertNewChildElement(elementName.data());
-                xmlE.SetText(s_int_64(e));
+                tinyxml2::XMLElement& valElement = *aXmlElement.InsertNewChildElement(propName.data());
 
-                if (aUnwrapKeyProp.has_value())
+                for (const s_int_32 e: container)
                 {
-                    GpXmlFromStruct::SWriteAttr(aStruct, aUnwrapKeyProp.value(), xmlE, aFlags);
+                    tinyxml2::XMLElement& xmlE = *valElement.InsertNewChildElement(elementName.data());
+                    xmlE.SetText(s_int_64(e));
+
+                    if (aUnwrapKeyProp.has_value())
+                    {
+                        GpXmlFromStruct::SWriteAttr(aStruct, aUnwrapKeyProp.value(), xmlE, aFlags);
+                    }
                 }
             }
         } break;
@@ -129,14 +157,19 @@ void    _ProcessContainer
         {
             auto& container = ValGetter::UInt64(aStruct, aPropInfo);
 
-            for (const u_int_64 e: container)
+            if (container.size() > 0)
             {
-                tinyxml2::XMLElement& xmlE = *valElement.InsertNewChildElement(elementName.data());
-                xmlE.SetText(u_int_64(e));
+                tinyxml2::XMLElement& valElement = *aXmlElement.InsertNewChildElement(propName.data());
 
-                if (aUnwrapKeyProp.has_value())
+                for (const u_int_64 e: container)
                 {
-                    GpXmlFromStruct::SWriteAttr(aStruct, aUnwrapKeyProp.value(), xmlE, aFlags);
+                    tinyxml2::XMLElement& xmlE = *valElement.InsertNewChildElement(elementName.data());
+                    xmlE.SetText(u_int_64(e));
+
+                    if (aUnwrapKeyProp.has_value())
+                    {
+                        GpXmlFromStruct::SWriteAttr(aStruct, aUnwrapKeyProp.value(), xmlE, aFlags);
+                    }
                 }
             }
         } break;
@@ -144,14 +177,19 @@ void    _ProcessContainer
         {
             auto& container = ValGetter::SInt64(aStruct, aPropInfo);
 
-            for (const s_int_64 e: container)
+            if (container.size() > 0)
             {
-                tinyxml2::XMLElement& xmlE = *valElement.InsertNewChildElement(elementName.data());
-                xmlE.SetText(s_int_64(e));
+                tinyxml2::XMLElement& valElement = *aXmlElement.InsertNewChildElement(propName.data());
 
-                if (aUnwrapKeyProp.has_value())
+                for (const s_int_64 e: container)
                 {
-                    GpXmlFromStruct::SWriteAttr(aStruct, aUnwrapKeyProp.value(), xmlE, aFlags);
+                    tinyxml2::XMLElement& xmlE = *valElement.InsertNewChildElement(elementName.data());
+                    xmlE.SetText(s_int_64(e));
+
+                    if (aUnwrapKeyProp.has_value())
+                    {
+                        GpXmlFromStruct::SWriteAttr(aStruct, aUnwrapKeyProp.value(), xmlE, aFlags);
+                    }
                 }
             }
         } break;
@@ -159,21 +197,26 @@ void    _ProcessContainer
         {
             auto& container = ValGetter::SInt64(aStruct, aPropInfo);
 
-            for (const s_int_64 e: container)
+            if (container.size() > 0)
             {
-                tinyxml2::XMLElement& xmlE = *valElement.InsertNewChildElement(elementName.data());
+                tinyxml2::XMLElement& valElement = *aXmlElement.InsertNewChildElement(propName.data());
 
-                if (aFlags.Test(GpXmlMapperFlag::UNIX_TS_AS_STR))
+                for (const s_int_64 e: container)
                 {
-                    xmlE.SetText(GpDateTimeOps::SUnixTsToStr(unix_ts_s_t::SMake(e), GpDateTimeFormat::STD_DATE_TIME).data());
-                } else
-                {
-                    xmlE.SetText(s_int_64(e));
-                }
+                    tinyxml2::XMLElement& xmlE = *valElement.InsertNewChildElement(elementName.data());
 
-                if (aUnwrapKeyProp.has_value())
-                {
-                    GpXmlFromStruct::SWriteAttr(aStruct, aUnwrapKeyProp.value(), xmlE, aFlags);
+                    if (aFlags.Test(GpXmlMapperFlag::UNIX_TS_AS_STR))
+                    {
+                        xmlE.SetText(GpDateTimeOps::SUnixTsToStr(unix_ts_s_t::SMake(e), GpDateTimeFormat::STD_DATE_TIME).data());
+                    } else
+                    {
+                        xmlE.SetText(s_int_64(e));
+                    }
+
+                    if (aUnwrapKeyProp.has_value())
+                    {
+                        GpXmlFromStruct::SWriteAttr(aStruct, aUnwrapKeyProp.value(), xmlE, aFlags);
+                    }
                 }
             }
         } break;
@@ -181,21 +224,26 @@ void    _ProcessContainer
         {
             auto& container = ValGetter::SInt64(aStruct, aPropInfo);
 
-            for (const s_int_64 e: container)
+            if (container.size() > 0)
             {
-                tinyxml2::XMLElement& xmlE = *valElement.InsertNewChildElement(elementName.data());
+                tinyxml2::XMLElement& valElement = *aXmlElement.InsertNewChildElement(propName.data());
 
-                if (aFlags.Test(GpXmlMapperFlag::UNIX_TS_AS_STR))
+                for (const s_int_64 e: container)
                 {
-                    xmlE.SetText(GpDateTimeOps::SUnixTsToStr(unix_ts_ms_t::SMake(e), GpDateTimeFormat::STD_DATE_TIME).data());
-                } else
-                {
-                    xmlE.SetText(s_int_64(e));
-                }
+                    tinyxml2::XMLElement& xmlE = *valElement.InsertNewChildElement(elementName.data());
 
-                if (aUnwrapKeyProp.has_value())
-                {
-                    GpXmlFromStruct::SWriteAttr(aStruct, aUnwrapKeyProp.value(), xmlE, aFlags);
+                    if (aFlags.Test(GpXmlMapperFlag::UNIX_TS_AS_STR))
+                    {
+                        xmlE.SetText(GpDateTimeOps::SUnixTsToStr(unix_ts_ms_t::SMake(e), GpDateTimeFormat::STD_DATE_TIME).data());
+                    } else
+                    {
+                        xmlE.SetText(s_int_64(e));
+                    }
+
+                    if (aUnwrapKeyProp.has_value())
+                    {
+                        GpXmlFromStruct::SWriteAttr(aStruct, aUnwrapKeyProp.value(), xmlE, aFlags);
+                    }
                 }
             }
         } break;
@@ -203,14 +251,19 @@ void    _ProcessContainer
         {
             auto& container = ValGetter::Double(aStruct, aPropInfo);
 
-            for (const double e: container)
+            if (container.size() > 0)
             {
-                tinyxml2::XMLElement& xmlE = *valElement.InsertNewChildElement(elementName.data());
-                xmlE.SetText(e);
+                tinyxml2::XMLElement& valElement = *aXmlElement.InsertNewChildElement(propName.data());
 
-                if (aUnwrapKeyProp.has_value())
+                for (const double e: container)
                 {
-                    GpXmlFromStruct::SWriteAttr(aStruct, aUnwrapKeyProp.value(), xmlE, aFlags);
+                    tinyxml2::XMLElement& xmlE = *valElement.InsertNewChildElement(elementName.data());
+                    xmlE.SetText(e);
+
+                    if (aUnwrapKeyProp.has_value())
+                    {
+                        GpXmlFromStruct::SWriteAttr(aStruct, aUnwrapKeyProp.value(), xmlE, aFlags);
+                    }
                 }
             }
         } break;
@@ -218,14 +271,19 @@ void    _ProcessContainer
         {
             auto& container = ValGetter::Float(aStruct, aPropInfo);
 
-            for (const float e: container)
+            if (container.size() > 0)
             {
-                tinyxml2::XMLElement& xmlE = *valElement.InsertNewChildElement(elementName.data());
-                xmlE.SetText(e);
+                tinyxml2::XMLElement& valElement = *aXmlElement.InsertNewChildElement(propName.data());
 
-                if (aUnwrapKeyProp.has_value())
+                for (const float e: container)
                 {
-                    GpXmlFromStruct::SWriteAttr(aStruct, aUnwrapKeyProp.value(), xmlE, aFlags);
+                    tinyxml2::XMLElement& xmlE = *valElement.InsertNewChildElement(elementName.data());
+                    xmlE.SetText(e);
+
+                    if (aUnwrapKeyProp.has_value())
+                    {
+                        GpXmlFromStruct::SWriteAttr(aStruct, aUnwrapKeyProp.value(), xmlE, aFlags);
+                    }
                 }
             }
         } break;
@@ -233,14 +291,19 @@ void    _ProcessContainer
         {
             auto& container = ValGetter::Bool(aStruct, aPropInfo);
 
-            for (const bool e: container)
+            if (container.size() > 0)
             {
-                tinyxml2::XMLElement& xmlE = *valElement.InsertNewChildElement(elementName.data());
-                xmlE.SetText(e);
+                tinyxml2::XMLElement& valElement = *aXmlElement.InsertNewChildElement(propName.data());
 
-                if (aUnwrapKeyProp.has_value())
+                for (const bool e: container)
                 {
-                    GpXmlFromStruct::SWriteAttr(aStruct, aUnwrapKeyProp.value(), xmlE, aFlags);
+                    tinyxml2::XMLElement& xmlE = *valElement.InsertNewChildElement(elementName.data());
+                    xmlE.SetText(e);
+
+                    if (aUnwrapKeyProp.has_value())
+                    {
+                        GpXmlFromStruct::SWriteAttr(aStruct, aUnwrapKeyProp.value(), xmlE, aFlags);
+                    }
                 }
             }
         } break;
@@ -248,15 +311,20 @@ void    _ProcessContainer
         {
             auto& container = ValGetter::UUID(aStruct, aPropInfo);
 
-            for (const GpUUID& e: container)
+            if (container.size() > 0)
             {
-                const std::string       s   = e.ToString();
-                tinyxml2::XMLElement&   xmlE= *valElement.InsertNewChildElement(elementName.data());
-                xmlE.SetText(s.data());
+                tinyxml2::XMLElement& valElement = *aXmlElement.InsertNewChildElement(propName.data());
 
-                if (aUnwrapKeyProp.has_value())
+                for (const GpUUID& e: container)
                 {
-                    GpXmlFromStruct::SWriteAttr(aStruct, aUnwrapKeyProp.value(), xmlE, aFlags);
+                    const std::string       s   = e.ToString();
+                    tinyxml2::XMLElement&   xmlE= *valElement.InsertNewChildElement(elementName.data());
+                    xmlE.SetText(s.data());
+
+                    if (aUnwrapKeyProp.has_value())
+                    {
+                        GpXmlFromStruct::SWriteAttr(aStruct, aUnwrapKeyProp.value(), xmlE, aFlags);
+                    }
                 }
             }
         } break;
@@ -264,14 +332,19 @@ void    _ProcessContainer
         {
             auto& container = ValGetter::String(aStruct, aPropInfo);
 
-            for (const std::string& e: container)
+            if (container.size() > 0)
             {
-                tinyxml2::XMLElement& xmlE = *valElement.InsertNewChildElement(elementName.data());
-                xmlE.SetText(e.data());
+                tinyxml2::XMLElement& valElement = *aXmlElement.InsertNewChildElement(propName.data());
 
-                if (aUnwrapKeyProp.has_value())
+                for (const std::string& e: container)
                 {
-                    GpXmlFromStruct::SWriteAttr(aStruct, aUnwrapKeyProp.value(), xmlE, aFlags);
+                    tinyxml2::XMLElement& xmlE = *valElement.InsertNewChildElement(elementName.data());
+                    xmlE.SetText(e.data());
+
+                    if (aUnwrapKeyProp.has_value())
+                    {
+                        GpXmlFromStruct::SWriteAttr(aStruct, aUnwrapKeyProp.value(), xmlE, aFlags);
+                    }
                 }
             }
         } break;
@@ -279,15 +352,20 @@ void    _ProcessContainer
         {
             auto& container = ValGetter::BLOB(aStruct, aPropInfo);
 
-            for (const GpBytesArray& e: container)
+            if (container.size() > 0)
             {
-                const std::string       s   = StrOps::SFromBytesHex(e);
-                tinyxml2::XMLElement&   xmlE= *valElement.InsertNewChildElement(elementName.data());
-                xmlE.SetText(s.data());
+                tinyxml2::XMLElement& valElement = *aXmlElement.InsertNewChildElement(propName.data());
 
-                if (aUnwrapKeyProp.has_value())
+                for (const GpBytesArray& e: container)
                 {
-                    GpXmlFromStruct::SWriteAttr(aStruct, aUnwrapKeyProp.value(), xmlE, aFlags);
+                    const std::string       s   = StrOps::SFromBytesHex(e);
+                    tinyxml2::XMLElement&   xmlE= *valElement.InsertNewChildElement(elementName.data());
+                    xmlE.SetText(s.data());
+
+                    if (aUnwrapKeyProp.has_value())
+                    {
+                        GpXmlFromStruct::SWriteAttr(aStruct, aUnwrapKeyProp.value(), xmlE, aFlags);
+                    }
                 }
             }
         } break;
@@ -299,47 +377,52 @@ void    _ProcessContainer
         {
             auto& container = ValGetter::StructSP(aStruct, aPropInfo);
 
-            if (aPropInfo.FlagTest(GpTypePropFlag::UNWRAP_CONTAINER))
+            if (container.size() > 0)
             {
-                THROW_GPE_COND
-                (
-                    aUnwrapKeyProp.has_value() == false,
-                    "Sequential unwrap are unsupported"_sv
-                );
+                tinyxml2::XMLElement& valElement = *aXmlElement.InsertNewChildElement(propName.data());
 
-                const GpTypePropInfo& unwrapKeyPropInfo = aPropInfo.UnwrapContainerKeyProp();
-
-                aXmlElement.DeleteChild(&valElement);
-
-                for (const GpTypeStructBase::SP& e: container)
+                if (aPropInfo.FlagTest(GpTypePropFlag::UNWRAP_CONTAINER))
                 {
-                    if (e.IsNULL())
+                    THROW_GPE_COND
+                    (
+                        aUnwrapKeyProp.has_value() == false,
+                        "Sequential unwrap are unsupported"_sv
+                    );
+
+                    const GpTypePropInfo& unwrapKeyPropInfo = aPropInfo.UnwrapContainerKeyProp();
+
+                    aXmlElement.DeleteChild(&valElement);
+
+                    for (const GpTypeStructBase::SP& e: container)
                     {
-                        //NOP
-                    } else
-                    {
-                        const GpTypeStructBase& structBase = e.VCn();
-                        GpXmlFromStruct::SWrite(structBase, aXmlElement, aFlags, unwrapKeyPropInfo);
+                        if (e.IsNULL())
+                        {
+                            //NOP
+                        } else
+                        {
+                            const GpTypeStructBase& structBase = e.VCn();
+                            GpXmlFromStruct::SWrite(structBase, aXmlElement, aFlags, unwrapKeyPropInfo);
+                        }
                     }
-                }
-            } else
-            {
-                for (const GpTypeStructBase::SP& e: container)
+                } else
                 {
-                    tinyxml2::XMLElement& xmlE= *valElement.InsertNewChildElement(elementName.data());
+                    for (const GpTypeStructBase::SP& e: container)
+                    {
+                        tinyxml2::XMLElement& xmlE = *valElement.InsertNewChildElement(elementName.data());
 
-                    if (e.IsNULL())
-                    {
-                        //NOP
-                    } else
-                    {
-                        const GpTypeStructBase& structBase  = e.VCn();
-                        GpXmlFromStruct::SWrite(structBase, xmlE, aFlags, std::nullopt);
-                    }
+                        if (e.IsNULL())
+                        {
+                            //NOP
+                        } else
+                        {
+                            const GpTypeStructBase& structBase  = e.VCn();
+                            GpXmlFromStruct::SWrite(structBase, xmlE, aFlags, std::nullopt);
+                        }
 
-                    if (aUnwrapKeyProp.has_value())
-                    {
-                        GpXmlFromStruct::SWriteAttr(aStruct, aUnwrapKeyProp.value(), xmlE, aFlags);
+                        if (aUnwrapKeyProp.has_value())
+                        {
+                            GpXmlFromStruct::SWriteAttr(aStruct, aUnwrapKeyProp.value(), xmlE, aFlags);
+                        }
                     }
                 }
             }
@@ -445,9 +528,12 @@ void    _ProcessMapVal
 
 template<typename KeyT,
          typename CT>
-void    _ProcessMapContainer (const CT&                 /*aContainer*/,
-                              tinyxml2::XMLElement&     /*aXmlMap*/,
-                              const GpXmlMapperFlags    /*aFlags*/)
+void    _ProcessMapContainer
+(
+    const CT&               /*aContainer*/,
+    tinyxml2::XMLElement&   /*aXmlMap*/,
+    const GpXmlMapperFlags  /*aFlags*/
+)
 {
     /*const GpType::EnumT propType = aPropInfo.Type();
     std::string_view    propName = aPropInfo.Name();
@@ -483,10 +569,13 @@ void    _ProcessMapContainer (const CT&                 /*aContainer*/,
 
 template<typename                       Key,
          template<typename...> class    ValGetter>
-void    _ProcessMap (const GpTypeStructBase&    aStruct,
-                     const GpTypePropInfo&      aPropInfo,
-                     tinyxml2::XMLElement&      aXmlElement,
-                     const GpXmlMapperFlags     aFlags)
+void    _ProcessMap
+(
+    const GpTypeStructBase& aStruct,
+    const GpTypePropInfo&   aPropInfo,
+    tinyxml2::XMLElement&   aXmlElement,
+    const GpXmlMapperFlags  aFlags
+)
 {
     const GpType::EnumT propType = aPropInfo.Type();
 
@@ -660,10 +749,13 @@ void    GpXmlFromStruct::SWrite
     }
 }
 
-void    GpXmlFromStruct::SWriteAttr (const GpTypeStructBase&    aStruct,
-                                     const GpTypePropInfo&      aPropInfo,
-                                     tinyxml2::XMLElement&      aXmlElement,
-                                     const GpXmlMapperFlags     aFlags)
+void    GpXmlFromStruct::SWriteAttr
+(
+    const GpTypeStructBase& aStruct,
+    const GpTypePropInfo&   aPropInfo,
+    tinyxml2::XMLElement&   aXmlElement,
+    const GpXmlMapperFlags  aFlags
+)
 {
     const GpType::EnumT propType = aPropInfo.Type();
     std::string_view    propName = aPropInfo.Name();
@@ -936,40 +1028,58 @@ void    GpXmlFromStruct::SWriteValue
             THROW_GPE("Unsupported type "_sv + GpType::SToString(aPropInfo.Type()));
         }
     }
+
+    if (   (valElement.NoChildren() == true)
+        && (valElement.FirstAttribute() == nullptr))
+    {
+        aXmlElement.DeleteChild(&valElement);
+    }
 }
 
-void    GpXmlFromStruct::SWriteValueVec (const GpTypeStructBase&        aStruct,
-                                         const GpTypePropInfo&          aPropInfo,
-                                         tinyxml2::XMLElement&          aXmlElement,
-                                         const GpXmlMapperFlags         aFlags,
-                                         GpTypePropInfo::C::Opt::CRef   aUnwrapKeyProp)
+void    GpXmlFromStruct::SWriteValueVec
+(
+    const GpTypeStructBase&         aStruct,
+    const GpTypePropInfo&           aPropInfo,
+    tinyxml2::XMLElement&           aXmlElement,
+    const GpXmlMapperFlags          aFlags,
+    GpTypePropInfo::C::Opt::CRef    aUnwrapKeyProp
+)
 {
     _ProcessContainer<GpTypePropInfoGetter_Vec>(aStruct, aPropInfo, aXmlElement, aFlags, aUnwrapKeyProp);
 }
 
-void    GpXmlFromStruct::SWriteValueList (const GpTypeStructBase&       aStruct,
-                                          const GpTypePropInfo&         aPropInfo,
-                                          tinyxml2::XMLElement&         aXmlElement,
-                                          const GpXmlMapperFlags        aFlags,
-                                          GpTypePropInfo::C::Opt::CRef  aUnwrapKeyProp)
+void    GpXmlFromStruct::SWriteValueList
+(
+    const GpTypeStructBase&         aStruct,
+    const GpTypePropInfo&           aPropInfo,
+    tinyxml2::XMLElement&           aXmlElement,
+    const GpXmlMapperFlags          aFlags,
+    GpTypePropInfo::C::Opt::CRef    aUnwrapKeyProp
+)
 {
     _ProcessContainer<GpTypePropInfoGetter_List>(aStruct, aPropInfo, aXmlElement, aFlags, aUnwrapKeyProp);
 }
 
-void    GpXmlFromStruct::SWriteValueSet (const GpTypeStructBase&        aStruct,
-                                         const GpTypePropInfo&          aPropInfo,
-                                         tinyxml2::XMLElement&          aXmlElement,
-                                         const GpXmlMapperFlags         aFlags,
-                                         GpTypePropInfo::C::Opt::CRef   aUnwrapKeyProp)
+void    GpXmlFromStruct::SWriteValueSet
+(
+    const GpTypeStructBase&         aStruct,
+    const GpTypePropInfo&           aPropInfo,
+    tinyxml2::XMLElement&           aXmlElement,
+    const GpXmlMapperFlags          aFlags,
+    GpTypePropInfo::C::Opt::CRef    aUnwrapKeyProp
+)
 {
     _ProcessContainer<GpTypePropInfoGetter_Set>(aStruct, aPropInfo, aXmlElement, aFlags, aUnwrapKeyProp);
 }
 
-void    GpXmlFromStruct::SWriteValueMap (const GpTypeStructBase&        /*aStruct*/,
-                                         const GpTypePropInfo&          /*aPropInfo*/,
-                                         tinyxml2::XMLElement&          /*aXmlElement*/,
-                                         const GpXmlMapperFlags         /*aFlags*/,
-                                         GpTypePropInfo::C::Opt::CRef   /*aUnwrapKeyProp*/)
+void    GpXmlFromStruct::SWriteValueMap
+(
+    const GpTypeStructBase&         /*aStruct*/,
+    const GpTypePropInfo&           /*aPropInfo*/,
+    tinyxml2::XMLElement&           /*aXmlElement*/,
+    const GpXmlMapperFlags          /*aFlags*/,
+    GpTypePropInfo::C::Opt::CRef    /*aUnwrapKeyProp*/
+)
 {
     //TODO: implement
     THROW_GPE_NOT_IMPLEMENTED();
