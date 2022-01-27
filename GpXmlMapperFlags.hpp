@@ -6,7 +6,8 @@ namespace GPlatform {
 
 GP_ENUM(GPXML_API, GpXmlMapperFlag,
     WRITE_STRUCT_UID,
-    UNIX_TS_AS_STR
+    UNIX_TS_AS_STR,
+    SKIP_EMPTY
 );
 
 using GpXmlMapperFlags = GpEnumFlagsST<GpXmlMapperFlag>;

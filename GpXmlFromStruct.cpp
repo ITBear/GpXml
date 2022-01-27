@@ -978,7 +978,17 @@ void    GpXmlFromStruct::SWriteValue
         case GpType::STRING:
         {
             const std::string& propVal = aPropInfo.Value_String(aStruct);
-            valElement.SetText(propVal.data());
+
+            if (aFlags.Test(GpXmlMapperFlag::SKIP_EMPTY))
+            {
+                if (propVal.length() > 0)
+                {
+                    valElement.SetText(propVal.data());
+                }
+            } else
+            {
+                valElement.SetText(propVal.data());
+            }
         } break;
         case GpType::BLOB:
         {
@@ -1029,10 +1039,13 @@ void    GpXmlFromStruct::SWriteValue
         }
     }
 
-    if (   (valElement.NoChildren() == true)
-        && (valElement.FirstAttribute() == nullptr))
+    if (aFlags.Test(GpXmlMapperFlag::SKIP_EMPTY))
     {
-        aXmlElement.DeleteChild(&valElement);
+        if (   (valElement.NoChildren() == true)
+            && (valElement.FirstAttribute() == nullptr))
+        {
+            aXmlElement.DeleteChild(&valElement);
+        }
     }
 }
 
